@@ -22,3 +22,9 @@ variable "aws_ami_id" {
   default     = "ami-0f918f7e67a3323f0"
   
 }
+
+variable "count_of_instance" {
+    description = "value for count"
+    type        = number
+    default = 2
+}

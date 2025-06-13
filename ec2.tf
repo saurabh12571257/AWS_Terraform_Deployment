@@ -1,5 +1,5 @@
 resource "aws_key_pair" "my_key" {
-  key_name   = "terra-key-ec2"
+  key_name   = "terra-new-key-ec2"
   public_key = file("terraform-key.pub")
 }
 
@@ -9,7 +9,7 @@ resource "aws_default_vpc" default{
 
 
 resource "aws_security_group" "allow_tls" {
-  name        = "automate-sg"
+  name        = "automate-sg-new"
   description = "permission to access the ec2."
   vpc_id      = aws_default_vpc.default.id
 
@@ -51,6 +51,7 @@ resource "aws_security_group" "allow_tls" {
 }
 
 resource "aws_instance" "my_instance" {
+    count = var.count_of_instance
     key_name = aws_key_pair.my_key.key_name
     security_groups = [aws_security_group.allow_tls.name]
     instance_type = var.aws_instance_type
@@ -67,4 +68,4 @@ resource "aws_instance" "my_instance" {
         Name = "my-ec2-instance"
     }
 }
-  
+
