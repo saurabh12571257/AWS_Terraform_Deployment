@@ -51,10 +51,18 @@ resource "aws_security_group" "allow_tls" {
 }
 
 resource "aws_instance" "my_instance" {
-    count = var.count_of_instance
+
+    for_each = tomap(
+        {
+            instance1 = "t2.micro",
+            instance2 = "t2.medium"
+            
+        }
+    )
+    #count = var.count_of_instance
     key_name = aws_key_pair.my_key.key_name
     security_groups = [aws_security_group.allow_tls.name]
-    instance_type = var.aws_instance_type
+    instance_type = each.value
     ami = var.aws_ami_id
 
     user_data = file("install_nginx.sh")
@@ -65,7 +73,7 @@ resource "aws_instance" "my_instance" {
     }
 
     tags = {
-        Name = "my-ec2-instance"
+        Name = each.key
     }
 }
 
