@@ -56,7 +56,7 @@ resource "aws_instance" "my_instance" {
         {
             instance1 = "t2.micro",
             instance2 = "t2.medium"
-            
+
         }
     )
     #count = var.count_of_instance
@@ -68,7 +68,7 @@ resource "aws_instance" "my_instance" {
     user_data = file("install_nginx.sh")
 
     root_block_device {
-        volume_size = var.root_store_size
+        volume_size = var.env == "prod" ? 20 : var.root_store_size
         volume_type = "gp3"
     }
 

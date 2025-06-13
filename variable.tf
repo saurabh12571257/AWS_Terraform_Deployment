@@ -28,3 +28,9 @@ variable "count_of_instance" {
     type        = number
     default = 2
 }
+
+variable "env" {
+    description = "Environment type (e.g., dev, prod)"
+    type = string
+    default = "prod"
+}
