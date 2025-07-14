@@ -65,7 +65,7 @@ resource "aws_instance" "my_instance" {
     instance_type = each.value
     ami = var.aws_ami_id
 
-    user_data = file("install_nginx.sh")
+    user_data = file("install_nginx.sh") //running script in the instance
 
     root_block_device {
         volume_size = var.env == "prod" ? 20 : var.root_store_size
