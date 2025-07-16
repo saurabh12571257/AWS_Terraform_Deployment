@@ -59,6 +59,8 @@ resource "aws_instance" "my_instance" {
 
         }
     )
+
+    depends_on = [ aws_security_group.allow_tls, aws_key_pair.my_key ]
     #count = var.count_of_instance
     key_name = aws_key_pair.my_key.key_name
     security_groups = [aws_security_group.allow_tls.name]
